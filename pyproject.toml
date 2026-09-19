@@ -1,0 +1,73 @@
+[project]
+name = "pythonprojectank"
+version = "0.1.0"
+description = "Coursework: transaction analysis"
+authors = [
+    {name = "Alexandr Korolev", email = "plusikqss@ya.ru"}
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pandas (>=2.0.0)",
+    "openpyxl (>=3.1.0)",
+    "requests (>=2.31.0)",
+    "python-dotenv (>=1.0.0)",
+    "yfinance (>=1.7.0,<2.0.0)",
+]
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+extend-exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.venv
+  | build
+  | dist
+  | htmlcov
+  | logs
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip = ["htmlcov", "logs", ".venv"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+exclude = [
+    'htmlcov/',
+    'logs/',
+]
+
+[[tool.mypy.overrides]]
+module = [
+    "pandas.*",
+    "numpy.*",
+    "openpyxl.*",
+]
+ignore_missing_imports = true
+follow_imports = "skip"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+show_missing = true
